@@ -6,60 +6,32 @@ import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
-      constructor(
+  constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
-//   async login(loginDto: LoginDto) {
-//     const user = await this.userService.findByEmail(loginDto.email);
-//     console.log(user)
-//     if (!user) {
-//       throw new UnauthorizedException('Invalid email or password');
-//     }
+  async login(loginDto: LoginDto) {
+    const user = await this.userService.findByEmail(loginDto.email);
+    console.log('User:', user);
 
-//     const isPasswordMatch = await bcrypt.compare(loginDto.password, user.password);
+    if (!user) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
 
-//     console.log('LoginDto:', loginDto);
-// console.log('User:', user);
-// console.log('Password Match:', isPasswordMatch);
+    const isPasswordMatch = loginDto.password === user.password;
 
-//     if (!isPasswordMatch) {
-//       throw new UnauthorizedException('Invalid email or password');
-//     }
+    console.log('LoginDto:', loginDto);
+    console.log('Password Match:', isPasswordMatch);
 
-//     const payload = { sub: user.id, email: user.email };
+    if (!isPasswordMatch) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
 
-//     return {
-//       message: 'Login successful',
-//       accessToken: this.jwtService.sign(payload),
- 
-//     };
-//   }
+    const payload = { sub: user.id, email: user.email };
 
-async login(loginDto: LoginDto) {
-  const user = await this.userService.findByEmail(loginDto.email);
-  console.log('User:', user);
-
-  if (!user) {
-    throw new UnauthorizedException('Invalid email or password');
+    return {
+      accessToken: this.jwtService.sign(payload),
+    };
   }
-
-  // Direct string comparison (insecure)
-  const isPasswordMatch = loginDto.password === user.password;
-
-  console.log('LoginDto:', loginDto);
-  console.log('Password Match:', isPasswordMatch);
-
-  if (!isPasswordMatch) {
-    throw new UnauthorizedException('Invalid email or password');
-  }
-
-  const payload = { sub: user.id, email: user.email };
-
-  return {
-    accessToken: this.jwtService.sign(payload),
-  };
-}
-
 }
