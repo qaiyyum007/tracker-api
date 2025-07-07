@@ -7,13 +7,13 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-app.enableCors({
-  origin: [
-    'http://localhost:4200',
-    'https://tracker-ui.vercel.app'
-  ],
-  credentials: true,
-});
+ app.enableCors({
+    origin: [
+      'http://localhost:4200',
+      'https://tracker-ui-6umi.vercel.app'
+    ],
+    credentials: true,
+  });
 
  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads/', 
