@@ -11,32 +11,20 @@ import { JwtMiddleware } from './auth/jwt.middleware';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
 
-    // TypeOrmModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   inject: [ConfigService],
-    //   useFactory: (config: ConfigService) => ({
-    //     type: 'postgres',
-    //     host: config.get<string>('DB_HOST'),
-    //     port: config.get<number>('DB_PORT'),
-    //     username: config.get<string>('DB_USERNAME'),
-    //     password: config.get<string>('DB_PASSWORD'),
-    //     database: config.get<string>('DB_NAME'),
-    //     entities: [__dirname + '/**/*.entity.{ts,js}'],
-    //     synchronize: true,
-    //   }),
-    // }),
-
     TypeOrmModule.forRootAsync({
-  imports: [ConfigModule],
-  inject: [ConfigService],
-  useFactory: (config: ConfigService) => ({
-    type: 'postgres',
-    url: config.get<string>('DATABASE_URL'), // use unified DB URL
-    autoLoadEntities: true,
-    synchronize: true,
-  }),
-}),
-
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        host: config.get<string>('DB_HOST'),
+        port: config.get<number>('DB_PORT'),
+        username: config.get<string>('DB_USERNAME'),
+        password: config.get<string>('DB_PASSWORD'),
+        database: config.get<string>('DB_NAME'),
+        entities: [__dirname + '/**/*.entity.{ts,js}'],
+        synchronize: true,
+      }),
+    }),
 
     UserModule,
     AuthModule,
