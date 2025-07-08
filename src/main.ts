@@ -18,10 +18,12 @@ async function bootstrap() {
 app.enableCors({
   origin: [
     'http://localhost:4200',
-    'https://tracker-ui-gnye.vercel.app'  
+    'https://tracker-ui-b3tm.vercel.app/login'  
   ],
   credentials: true,
 });
+
+
 
 
  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
