@@ -15,13 +15,15 @@ async function bootstrap() {
 //     credentials: true,
 //   });
 
+
 app.enableCors({
   origin: [
     'http://localhost:4200',
-    'https://tracker-ui-ci6c.vercel.app/login'  
+    'https://tracker-ui-ci6c.vercel.app' 
   ],
   credentials: true,
 });
+
 
 
 
