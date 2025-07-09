@@ -19,7 +19,7 @@ async function bootstrap() {
 app.enableCors({
   origin: [
     'http://localhost:4200',
-    'https://tracker-ui-5pmj.vercel.app/login' 
+    'https://tracker-ui-pucl.vercel.app/login' 
   ],
   credentials: true,
 });
